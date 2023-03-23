@@ -18,7 +18,6 @@ export const text = cva('', {
     },
     weight: {
       regular: 'font-regular',
-      medium: 'font-medium',
       bold: 'font-bold',
     },
   },

@@ -61,7 +61,7 @@ export default function Index() {
               <p className={text({ size: '1' })}>
                 {prefix ? (
                   <>
-                    <span className="font-medium">{prefix}</span> &rarr;{' '}
+                    <span>{prefix}</span> &rarr;{' '}
                   </>
                 ) : null}
                 {content}

@@ -36,6 +36,8 @@ export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   title: 'Brett Smith - Frontend Engineer',
   viewport: 'width=device-width,initial-scale=1',
+  description:
+    'Software engineer interested in TypeScript, React, and Design Systems. Currently working as Technical Director at Elegant Seagulls',
 });
 
 export default function App() {
@@ -104,10 +106,5 @@ const FONTS = `
   font-family: 'NeueMontreal';
   src: url('./fonts/PPNeueMontreal-Bold.woff2') format('woff2');
   font-weight: 700;
-}
-@font-face {
-  font-family: 'NeueMontreal';
-  src: url('./fonts/PPNeueMontreal-Regular.woff2') format('woff2');
-  font-weight: 500;
 }
 `;
