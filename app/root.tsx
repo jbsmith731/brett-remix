@@ -32,19 +32,33 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const meta: MetaFunction = () => ({
-  charset: 'utf-8',
-  title: 'Brett Smith - Frontend Engineer',
-  viewport: 'width=device-width,initial-scale=1',
-  description:
-    'Software engineer interested in TypeScript, React, and Design Systems. Currently working as Technical Director at Elegant Seagulls',
-});
+const TITLE = 'Brett Smith - Frontend Engineer';
+const SOCIAL_IMAGE = `${process.env.VERCEL_URL ?? ''}/images/social.png`;
+const DESCRIPTION =
+  'Software engineer interested in TypeScript, React, and Design Systems. Currently working as Technical Director at Elegant Seagulls';
+
+export const meta: MetaFunction = () => {
+  return {
+    title: TITLE,
+    description: DESCRIPTION,
+    'og:title': TITLE,
+    'twitter:title': TITLE,
+    'og:image': SOCIAL_IMAGE,
+    'twitter:image': SOCIAL_IMAGE,
+    'og:description': DESCRIPTION,
+    'twitter:description': DESCRIPTION,
+    'twitter:card': 'summary_large_image',
+    'twitter:site': '@_brettsmith',
+  };
+};
 
 export default function App() {
   return (
     <html lang="en">
       <head>
         <style dangerouslySetInnerHTML={{ __html: FONTS }} />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
       </head>
