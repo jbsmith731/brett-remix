@@ -33,7 +33,7 @@ export const links: LinksFunction = () => [
 ];
 
 const TITLE = 'Brett Smith - Frontend Engineer';
-const SOCIAL_IMAGE = `${process.env.VERCEL_URL ?? ''}/images/social.png`;
+const SOCIAL_IMAGE = 'https://brettsmith.me/images/social.png';
 const DESCRIPTION =
   'Software engineer interested in TypeScript, React, and Design Systems. Currently working as Technical Director at Elegant Seagulls';
 
