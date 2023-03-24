@@ -98,13 +98,13 @@ const UPDATES: Update[] = [
   {
     prefix: 'Shipped',
     content: 'Personal website v4.0',
-    date: 'Apr. 2023',
-  },
-  {
-    prefix: 'Shipped',
-    content: 'Audible ACX Blog',
     date: 'Mar. 2023',
   },
+  // {
+  //   prefix: 'Shipped',
+  //   content: 'Audible ACX Blog',
+  //   date: 'Mar. 2023',
+  // },
   {
     prefix: 'Award',
     content: 'Elegant Seagulls Awwwards Site of The Day',
