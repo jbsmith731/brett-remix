@@ -25,7 +25,7 @@ const NAV_LINKS = [
     to: 'mailto:hi@brettsmith.me',
   },
   {
-    text: 'Github',
+    text: 'GitHub',
     to: 'https://github.com/jbsmith731',
   },
 ];
