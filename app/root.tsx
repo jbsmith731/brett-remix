@@ -108,17 +108,17 @@ export function CatchBoundary() {
 const FONTS = `
 @font-face {
   font-family: 'Formula';
-  src: url('./fonts/PPFormulaCondensed-Bold.woff2') format('woff2');
+  src: url('/fonts/PPFormulaCondensed-Bold.woff2') format('woff2');
   font-weight: 700;
 }
 @font-face {
   font-family: 'NeueMontreal';
-  src: url('./fonts/PPNeueMontreal-Book.woff2') format('woff2');
+  src: url('/fonts/PPNeueMontreal-Book.woff2') format('woff2');
   font-weight: 400;
 }
 @font-face {
   font-family: 'NeueMontreal';
-  src: url('./fonts/PPNeueMontreal-Bold.woff2') format('woff2');
+  src: url('/fonts/PPNeueMontreal-Bold.woff2') format('woff2');
   font-weight: 700;
 }
 `;
