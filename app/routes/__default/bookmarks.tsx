@@ -1,6 +1,7 @@
 import { headingText, text } from '~/style/text';
 import { formulaSpaceReset } from '~/style/text';
 import data from '~/data/bookmarks.json';
+import { Linkbox } from '~/components/Linkbox';
 
 export default function Bookmarks() {
   return (
@@ -19,12 +20,14 @@ export default function Bookmarks() {
           {data.bookmarks.map(({ title, url, description }, index) => (
             <li
               key={index}
-              className="py-3 [&:not(:first-of-type)]:border-t border-gray"
+              className="[&:not(:first-of-type)]:border-t border-gray"
             >
-              <h2 className={headingText({ className: 'mb-0', level: '4' })}>
-                {title}
-              </h2>
-              <p className={text({ size: '1' })}>{description}</p>
+              <Linkbox.Root className="py-3">
+                <h2 className={headingText({ className: 'mb-0', level: '4' })}>
+                  <Linkbox.Target to={url}>{title}</Linkbox.Target>
+                </h2>
+                <p className={text({ size: '1' })}>{description}</p>
+              </Linkbox.Root>
             </li>
           ))}
         </ul>
