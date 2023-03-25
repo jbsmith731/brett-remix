@@ -98,8 +98,6 @@ export function CatchBoundary() {
             Go back home &rarr;
           </Link>
         </div>
-
-        <Scripts />
       </body>
     </html>
   );
