@@ -96,18 +96,16 @@ type Update = {
 
 const UPDATES: Update[] = [
   {
-    prefix: 'Shipped',
-    content: 'Personal website v4.0',
+    content: 'Launched personal website v4.0',
     date: 'Mar. 2023',
   },
   // {
-  //   prefix: 'Shipped',
   //   content: 'Audible ACX Blog',
   //   date: 'Mar. 2023',
   // },
   {
-    prefix: 'Award',
-    content: 'Elegant Seagulls Awwwards Site of The Day',
+    prefix: 'Awwwards',
+    content: 'Elegant Seagulls agency Site of The Day',
     date: 'Jul. 2022',
   },
   {
@@ -115,48 +113,49 @@ const UPDATES: Update[] = [
     date: 'May 2022',
   },
   {
-    prefix: 'Shipped',
-    content: 'Audible Audiobook Recommendation Quiz Platform',
+    content: 'Launched Audible landing page experiments',
+    date: 'Apr. 2022',
+  },
+  {
+    content: 'Launched Audible Audiobook quiz recommendation  platform',
     date: 'Nov. 2021',
   },
   {
-    prefix: 'Promoted',
     content: 'Tech. Director @ Elegant Seagulls',
     date: 'Sept. 2020',
   },
   {
-    prefix: 'Award',
-    content: 'Waves 4 Water Awwwards Honorable Mention',
+    prefix: 'Awwwards',
+    content: 'Waves 4 Water Honorable Mention',
     date: 'Aug. 2019',
   },
   {
-    prefix: 'Award',
-    content: 'Tane CSS Design Awards Website of the Day',
+    prefix: 'CSS Design Awards',
+    content: 'Tane Website of the Day',
     date: 'Aug. 2019',
   },
   {
-    prefix: 'Award',
-    content: 'Tane Awwwards Honorable Mention',
+    prefix: 'Awwwards',
+    content: 'Tane Honorable Mention & Mobile Excellence Award',
     date: 'Aug. 2019',
   },
   {
-    prefix: 'Award',
-    content: 'About Audible Awwwards Honorable Mention',
+    prefix: 'Awwwards',
+    content: 'About Audible Honorable Mention',
     date: 'Mar. 2019',
   },
   {
-    prefix: 'Promoted',
     content: 'Lead Frontend Developer @ Elegant Seagulls',
     date: 'Oct. 2018',
   },
   {
-    prefix: 'Award',
-    content: 'InVision Design Leadership Awwwards Honorable Mention',
+    prefix: 'Awwwards',
+    content: 'InVision Design Leadership Honorable Mention',
     date: 'Feb. 2018',
   },
   {
-    prefix: 'Award',
-    content: 'Elegant Seagulls Awwwards Honorable Mention',
+    prefix: 'Awwwards',
+    content: 'Elegant Seagulls agency site Honorable Mention',
     date: 'Oct. 2017',
   },
 ];
