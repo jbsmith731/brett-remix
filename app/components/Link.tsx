@@ -10,13 +10,11 @@ export const Link = ({ to, children, className, ...rest }: LinkProps) => {
   }
 
   return (
-    <RemixLink
-      {...rest}
-      to={to}
-      className={cx(className, 'hover:text-blue-600 transition-colors')}
-    >
+    <RemixLink {...rest} to={to} className={cx(className, styledLink)}>
       {children}
       {isExternal ? <span aria-hidden="true"> &#8599;</span> : null}
     </RemixLink>
   );
 };
+
+export const styledLink = 'text-coal hover:text-blue-600 transition-colors';
