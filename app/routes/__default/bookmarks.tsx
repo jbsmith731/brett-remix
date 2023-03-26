@@ -2,6 +2,17 @@ import { headingText, text } from '~/style/text';
 import { formulaSpaceReset } from '~/style/text';
 import data from '~/data/bookmarks.json';
 import { Linkbox } from '~/components/Linkbox';
+import type { MetaFunction } from '@remix-run/node';
+
+const TITLE = 'Bookmarks | Brett Smith - Frontend Engineer';
+
+export const meta: MetaFunction = () => {
+  return {
+    title: TITLE,
+    'og:title': TITLE,
+    'twitter:title': TITLE,
+  };
+};
 
 export default function Bookmarks() {
   return (
