@@ -8,11 +8,12 @@ export const Footer = () => {
 
   return (
     <footer
-      className={cx('pt-5 flex justify-between md:border-t-0', container)}
+      className={cx(
+        'pt-5 flex flex-wrap justify-between gap-2 sm:flex-row-reverse',
+        container,
+      )}
     >
-      <div className={text()}>Nashville, TN &mdash; &copy; {year}</div>
-
-      <ul className="flex gap-2">
+      <ul className="flex gap-2 max-sm:basis-[100%]">
         {SOCIAL.map(({ url, name }) => (
           <li key={url}>
             <Link
@@ -26,6 +27,8 @@ export const Footer = () => {
           </li>
         ))}
       </ul>
+
+      <div className={text()}>Nashville, TN &mdash; &copy; {year}</div>
     </footer>
   );
 };
