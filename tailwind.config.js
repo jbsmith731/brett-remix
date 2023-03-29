@@ -22,7 +22,7 @@ module.exports = {
         6: createFluidValue(48, 96),
         5: createFluidValue(32, 48),
         4: createFluidValue(32, 40),
-        3: '1.5rem',
+        3: createFluidValue(20, 24),
         2: '1.25rem',
         1: createFluidValue(16, 18),
         0: '1rem',
