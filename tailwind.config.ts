@@ -1,3 +1,4 @@
+import type { Config } from 'tailwindcss';
 import { createFluidValue } from '~/style/createFluidValue';
 
 module.exports = {
@@ -65,4 +66,4 @@ module.exports = {
   corePlugins: {
     float: false,
   },
-};
+} satisfies Config;
