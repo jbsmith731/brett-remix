@@ -14,6 +14,7 @@
     "@vercel/node": "^2.6.2",
     "cva": "npm:class-variance-authority",
     "isbot": "latest",
+    "prettier-plugin-organize-imports": "^3.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

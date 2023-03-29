@@ -1,8 +1,7 @@
-import { headingText, text } from '~/style/text';
-import { formulaSpaceReset } from '~/style/text';
-import data from '~/data/bookmarks.json';
-import { Linkbox } from '~/components/Linkbox';
 import type { MetaFunction } from '@remix-run/node';
+import { Linkbox } from '~/components/Linkbox';
+import data from '~/data/bookmarks.json';
+import { formulaSpaceReset, headingText, text } from '~/style/text';
 
 const TITLE = 'Bookmarks | Brett Smith - Frontend Engineer';
 

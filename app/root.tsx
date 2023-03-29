@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -8,12 +8,11 @@ import {
   ScrollRestoration,
   useCatch,
 } from '@remix-run/react';
-import type { LinksFunction } from '@remix-run/node';
-import { formulaSpaceReset, headingText } from './style/text';
 import { Link } from './components/Link';
+import { formulaSpaceReset, headingText } from './style/text';
 
-import tw from './style/tailwind.css';
 import style from './style/style.css';
+import tw from './style/tailwind.css';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: tw },

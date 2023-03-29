@@ -1,5 +1,5 @@
-import { Link as RemixLink } from '@remix-run/react';
 import type { LinkProps } from '@remix-run/react';
+import { Link as RemixLink } from '@remix-run/react';
 import { cx } from 'cva';
 
 export const Link = ({ to, children, className, ...rest }: LinkProps) => {
