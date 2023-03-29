@@ -9,13 +9,15 @@ import {
   useCatch,
 } from '@remix-run/react';
 import type { LinksFunction } from '@remix-run/node';
-
-import styles from './style/tailwind.css';
 import { formulaSpaceReset, headingText } from './style/text';
 import { Link } from './components/Link';
 
+import tw from './style/tailwind.css';
+import style from './style/style.css';
+
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: styles },
+  { rel: 'stylesheet', href: tw },
+  { rel: 'stylesheet', href: style },
   {
     rel: 'preload',
     href: './fonts/PPFormulaCondensed-Bold.woff2',

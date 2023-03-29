@@ -15,7 +15,7 @@ const HomeLayout = () => {
             'flex justify-between items-baseline md:justify-end',
           )}
         >
-          <Logo className="w-[18px] md:hidden" />
+          <Logo className="w-[16px] md:hidden" />
 
           <Nav />
         </div>
