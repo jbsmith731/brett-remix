@@ -1,4 +1,3 @@
-import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -8,6 +7,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from '@remix-run/react';
+import type { LinksFunction, MetaFunction } from '@vercel/remix';
 import { Link } from './components/Link';
 import { formulaSpaceReset, headingText } from './style/text';
 
