@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { createFluidValue } from '~/style/createFluidValue';
+import { createFluidValue } from './app/style/createFluidValue';
 
 module.exports = {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
