@@ -1,6 +1,11 @@
 {
   "bookmarks": [
     {
+      "title": "Pretty Cache Header",
+      "url": "https://github.com/jjenzz/pretty-cache-header",
+      "description": "Cache-control header utility that parses human readable time strings into seconds"
+    },
+    {
       "title": "SVG Sprites",
       "url": "https://benadam.me/thoughts/react-svg-sprites/",
       "description": "The best way to manage SVG icons in React.js"
