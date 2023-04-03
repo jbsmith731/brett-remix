@@ -12,7 +12,7 @@ export const Link = ({ to, children, className, ...rest }: LinkProps) => {
   return (
     <RemixLink {...rest} to={to} className={cx(className, styledLink)}>
       {children}
-      {isExternal ? <span aria-hidden="true"> &#8599;</span> : null}
+      {isExternal ? <span aria-hidden="true">&nbsp;&#8599;</span> : null}
     </RemixLink>
   );
 };
