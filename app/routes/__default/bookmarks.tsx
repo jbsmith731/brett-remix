@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node';
+import type { MetaFunction } from '@vercel/remix';
 import { Linkbox } from '~/components/Linkbox';
 import data from '~/data/bookmarks.json';
 import { formulaSpaceReset, headingText, text } from '~/style/text';
