@@ -8,6 +8,7 @@
     "format": "prettier --write 'app/**/*.{ts,tsx}'"
   },
   "dependencies": {
+    "@radix-ui/react-form": "^0.0.2",
     "@remix-run/node": "^1.15.0",
     "@remix-run/react": "^1.15.0",
     "@supabase/auth-helpers-remix": "^0.1.5",
