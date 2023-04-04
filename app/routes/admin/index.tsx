@@ -1,22 +1,26 @@
 import * as Form from '@radix-ui/react-form';
-import { Form as RemixForm, useActionData } from '@remix-run/react';
+import {
+  Form as RemixForm,
+  useActionData,
+  useNavigation,
+} from '@remix-run/react';
 import type { ActionArgs } from '@vercel/remix';
 import { json } from '@vercel/remix';
 import { z } from 'zod';
 import { container } from '~/style/container';
+import { headingText } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
 
 export const action = async ({ request }: ActionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
   const formData = Object.fromEntries(await request.formData());
+  const bookmark = bookmarkSchema.safeParse(formData);
 
-  const validation = bookmarkSchema.safeParse(formData);
-
-  if (!validation.success) {
+  if (!bookmark.success) {
     return json(
       {
-        validationError: validation.error.format(),
+        validationError: bookmark.error.format(),
         submitError: null,
       },
       {
@@ -26,9 +30,7 @@ export const action = async ({ request }: ActionArgs) => {
   }
 
   try {
-    const bookmark = bookmarkSchema.parse(formData);
-
-    await supabase.from('Bookmarks').insert([bookmark]);
+    await supabase.from('Bookmarks').insert([bookmark.data]);
 
     return json({ submitError: null, validationError: null }, { status: 201 });
   } catch (error) {
@@ -39,11 +41,12 @@ export const action = async ({ request }: ActionArgs) => {
 const Admin = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { submitError, validationError } = useActionData<typeof action>() ?? {};
-  console.log(Boolean(validationError?.title));
+  const { state } = useNavigation();
+  const isSubmitting = state === 'submitting';
 
   return (
     <main className={container}>
-      <h1>Admin</h1>
+      <h1 className={headingText({ level: '3' })}>Admin</h1>
 
       <Form.Root asChild>
         <RemixForm method="post">
@@ -67,7 +70,7 @@ const Admin = () => {
             <Form.Label>URL</Form.Label>
             <Form.Control type="text" placeholder="URL" />
             <Form.Message
-              match="valueMissing"
+              match="patternMismatch"
               forceMatch={Boolean(validationError?.url)}
             >
               {validationError?.url
@@ -94,7 +97,9 @@ const Admin = () => {
             </Form.Message>
           </Form.Field>
 
-          <Form.Submit type="submit">Submit</Form.Submit>
+          <Form.Submit type="submit" disabled={isSubmitting}>
+            Submit
+          </Form.Submit>
         </RemixForm>
       </Form.Root>
     </main>
