@@ -1,3 +1,4 @@
+import { Form } from '@remix-run/react';
 import type { ActionArgs } from '@vercel/remix';
 import { container } from '~/style/container';
 import { createServerClient } from '~/utils/supabase.server';
@@ -23,12 +24,12 @@ const Admin = () => {
     <main className={container}>
       <h1>Admin</h1>
 
-      <form method="post" action="?index">
+      <Form method="post">
         <input type="text" name="title" placeholder="title" />
         <input type="text" name="url" placeholder="url" />
         <textarea name="description" placeholder="description" />
         <button type="submit">Submit</button>
-      </form>
+      </Form>
     </main>
   );
 };
