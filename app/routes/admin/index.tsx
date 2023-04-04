@@ -47,7 +47,10 @@ export const loader = async ({ request }: LoaderArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
 
-  const { data, error } = await supabase.from('Bookmarks').select('*');
+  const { data, error } = await supabase
+    .from('Bookmarks')
+    .select('id, title, url, description')
+    .order('id', { ascending: false });
 
   return json({ data, error });
 };
@@ -74,7 +77,7 @@ const Admin = () => {
 
       <h2
         className={headingText({
-          className: 'mt-5 mb-2 pb-0 border-b-2 border-current',
+          className: 'mt-4 mb-2 pb-0 border-b-2 border-current',
           level: '6',
         })}
       >
@@ -83,7 +86,13 @@ const Admin = () => {
 
       <div className="grid gap-y-5 gap-x-8 items-start lg:grid-cols-[auto_1fr]">
         <Form.Root asChild>
-          <RemixForm method="post" className={form} replace ref={formRef}>
+          <RemixForm
+            method="post"
+            className={form}
+            replace
+            ref={formRef}
+            name="create"
+          >
             <Form.Field
               name="title"
               serverInvalid={Boolean(validationError?.title)}
