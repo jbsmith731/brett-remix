@@ -26,9 +26,9 @@ export const action = async ({ request }: ActionArgs) => {
   }
 
   try {
-    const bookmarks = bookmarkSchema.parse(formData);
+    const bookmark = bookmarkSchema.parse(formData);
 
-    await supabase.from('Bookmarks').insert([bookmarks]);
+    await supabase.from('Bookmarks').insert([bookmark]);
 
     return json({ submitError: null, validationError: null }, { status: 201 });
   } catch (error) {
