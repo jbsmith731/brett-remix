@@ -1,6 +1,6 @@
 import { Outlet, useFetcher, useLoaderData } from '@remix-run/react';
 import { createBrowserClient } from '@supabase/auth-helpers-remix';
-import { json } from '@vercel/remix';
+import { json, redirect } from '@vercel/remix';
 import { useEffect, useState } from 'react';
 import { createServerClient } from '~/utils/supabase.server';
 
@@ -35,8 +35,10 @@ export const loader = async ({ request }: LoaderArgs) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // in order for the set-cookie header to be set,
-  // headers must be returned as part of the loader response
+  if (!session) {
+    throw redirect('/', 302);
+  }
+
   return json(
     {
       env,
@@ -52,8 +54,6 @@ export default function Admin() {
   const { env, session } = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
-  // it is important to create a single instance of Supabase
-  // to use across client components - outlet context 👇
   const [supabase] = useState(() =>
     createBrowserClient<Database>(env.SUPABASE_URL, env.SUPABASE_ANON_KEY),
   );
@@ -69,7 +69,7 @@ export default function Admin() {
         // Remix recalls active loaders after actions complete
         fetcher.submit(null, {
           method: 'post',
-          action: '/handle-supabase-auth',
+          action: '/admin/handle-supabase-auth',
         });
       }
     });
@@ -78,7 +78,6 @@ export default function Admin() {
       subscription.unsubscribe();
     };
   }, [serverAccessToken, supabase, fetcher]);
-  console.log('session', session);
 
   return (
     <>
