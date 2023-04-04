@@ -10,6 +10,7 @@ import { json } from '@vercel/remix';
 import { cx } from 'cva';
 import * as React from 'react';
 import { z } from 'zod';
+import { Linkbox } from '~/components/Linkbox';
 import { button } from '~/style/button';
 import { container } from '~/style/container';
 import { errorMessage, form, formLabel, input } from '~/style/forms';
@@ -163,15 +164,27 @@ const Admin = () => {
 
         <div>
           <ul>
-            {data?.map((bookmark) => (
+            {data?.map(({ id, url, title, description }) => (
               <li
-                key={bookmark.id}
-                className="[&:not(:first-of-type)]:border-t border-gray py-2"
+                key={id}
+                className="[&:not(:first-of-type)]:border-t border-gray"
               >
-                <h3 className={headingText({ level: '5' })}>
-                  {bookmark.title}
-                </h3>
-                <p>{bookmark.description}</p>
+                <Linkbox.Root className="py-2">
+                  <h3 className={headingText({ level: '5' })}>
+                    {url ? (
+                      <Linkbox.Target
+                        to={url}
+                        target="_blank"
+                        rel="noreferrer,nofollow"
+                      >
+                        {title}
+                      </Linkbox.Target>
+                    ) : (
+                      title
+                    )}
+                  </h3>
+                  <p>{description}</p>
+                </Linkbox.Root>
               </li>
             ))}
           </ul>

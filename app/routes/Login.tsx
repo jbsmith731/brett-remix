@@ -56,7 +56,6 @@ export const headers = () => {
 const Login = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { submitError, validationError } = useActionData<typeof action>() ?? {};
-  console.log({ submitError, validationError });
 
   return (
     <div className={cx(container, 'flex h-screen')}>
