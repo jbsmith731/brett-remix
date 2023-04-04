@@ -1,31 +1,37 @@
+import * as Form from '@radix-ui/react-form';
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form as RemixForm, useActionData } from '@remix-run/react';
 import type { ActionArgs, MetaFunction } from '@vercel/remix';
+import { z } from 'zod';
+import { button } from '~/style/button';
+import { form, formLabel, input } from '~/style/forms';
+import { headingText } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
 
 export const action = async ({ request }: ActionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
+  const formData = Object.fromEntries(await request.formData());
+  const loginData = loginSchema.safeParse(formData);
 
-  const form = await request.formData();
-  const email = form.get('email');
-  const password = form.get('password');
-
-  if (!email) {
-    return json({ error: 'Email is required' });
+  if (!loginData.success) {
+    return json(
+      {
+        validationError: loginData.error.format(),
+        submitError: null,
+      },
+      {
+        status: 400,
+      },
+    );
   }
 
-  if (!password) {
-    return json({ error: 'Password is required' });
-  }
+  const { error: submitError } = await supabase.auth.signInWithPassword(
+    loginData.data,
+  );
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: email as string,
-    password: password as string,
-  });
-
-  if (error) {
-    return json({ error: error.message });
+  if (submitError) {
+    return json({ submitError, validationError: null }, { status: 400 });
   }
 
   return redirect('/admin', {
@@ -39,21 +45,57 @@ export const meta: MetaFunction = () => {
   };
 };
 
-// TODO: improve auth flow
+export const headers = () => {
+  return {
+    'x-robots-tag': 'noindex,nofollow',
+  };
+};
+
 const Login = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { error } = useLoaderData() ?? {};
+  const { submitError, validationError } = useActionData<typeof action>() ?? {};
+  console.log({ submitError, validationError });
 
   return (
-    <div>
-      <h1>Login</h1>
-      <Form method="post">
-        <input type="email" name="email" placeholder="email" />
-        <input type="password" name="password" placeholder="password" />
-        <button type="submit">Login</button>
-      </Form>
+    <div className="flex h-screen">
+      <div className="m-auto">
+        <h1 className={headingText({ className: 'mb-3', level: '4' })}>
+          Login
+        </h1>
+        <Form.Root asChild>
+          <RemixForm method="post" className={form}>
+            <Form.Field name="email">
+              <Form.Label className={formLabel}>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="email"
+                required
+                className={input}
+              />
+            </Form.Field>
+
+            <Form.Field name="password">
+              <Form.Label className={formLabel}>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="password"
+                required
+                className={input}
+              />
+            </Form.Field>
+            <Form.Submit type="submit" className={button()}>
+              Login
+            </Form.Submit>
+          </RemixForm>
+        </Form.Root>
+      </div>
     </div>
   );
 };
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
 
 export default Login;

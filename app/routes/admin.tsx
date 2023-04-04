@@ -44,6 +44,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   );
 };
 
+export const headers = () => {
+  return {
+    'x-robots-tag': 'noindex,nofollow',
+  };
+};
+
 export default function Admin() {
   const { env, session } = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
