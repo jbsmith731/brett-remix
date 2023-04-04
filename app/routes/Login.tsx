@@ -2,8 +2,10 @@ import * as Form from '@radix-ui/react-form';
 import { json, redirect } from '@remix-run/node';
 import { Form as RemixForm, useActionData } from '@remix-run/react';
 import type { ActionArgs, MetaFunction } from '@vercel/remix';
+import { cx } from 'cva';
 import { z } from 'zod';
 import { button } from '~/style/button';
+import { container } from '~/style/container';
 import { form, formLabel, input } from '~/style/forms';
 import { headingText } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
@@ -57,8 +59,8 @@ const Login = () => {
   console.log({ submitError, validationError });
 
   return (
-    <div className="flex h-screen">
-      <div className="m-auto">
+    <div className={cx(container, 'flex h-screen')}>
+      <div className="m-auto w-full md:w-[400px]">
         <h1 className={headingText({ className: 'mb-3', level: '4' })}>
           Login
         </h1>
