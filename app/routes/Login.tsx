@@ -6,7 +6,7 @@ import { cx } from 'cva';
 import { z } from 'zod';
 import { button } from '~/style/button';
 import { container } from '~/style/container';
-import { form, formLabel, input } from '~/style/forms';
+import { errorMessage, form, formLabel, input } from '~/style/forms';
 import { headingText } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
 
@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <div className={cx(container, 'flex h-screen')}>
       <div className="m-auto w-full md:w-[400px]">
-        <h1 className={headingText({ className: 'mb-3', level: '4' })}>
+        <h1 className={headingText({ className: 'mb-2', level: '3' })}>
           Login
         </h1>
         <Form.Root asChild>
@@ -89,6 +89,12 @@ const Login = () => {
             </Form.Submit>
           </RemixForm>
         </Form.Root>
+        {/* TODO: Improve error/validation handling */}
+        {submitError || validationError ? (
+          <p className={errorMessage}>
+            An error has ocurred. Please try again.
+          </p>
+        ) : null}
       </div>
     </div>
   );

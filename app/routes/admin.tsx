@@ -6,6 +6,9 @@ import { createServerClient } from '~/utils/supabase.server';
 
 import type { Session, SupabaseClient } from '@supabase/auth-helpers-remix';
 import type { LoaderArgs } from '@vercel/remix';
+import { cx } from 'cva';
+import { container } from '~/style/container';
+import { headingText } from '~/style/text';
 import type { Database } from '~/types/supabase';
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
@@ -80,8 +83,12 @@ export default function Admin() {
   }, [serverAccessToken, supabase, fetcher]);
 
   return (
-    <>
+    <main className={cx(container, 'py-4')}>
+      <div className="mb-4">
+        <h1 className={headingText({ level: '3' })}>Admin</h1>
+      </div>
+
       <Outlet context={{ supabase, session }} />
-    </>
+    </main>
   );
 }

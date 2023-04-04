@@ -7,12 +7,10 @@ import {
 } from '@remix-run/react';
 import type { ActionArgs, LoaderArgs } from '@vercel/remix';
 import { json } from '@vercel/remix';
-import { cx } from 'cva';
 import * as React from 'react';
 import { z } from 'zod';
 import { Linkbox } from '~/components/Linkbox';
 import { button } from '~/style/button';
-import { container } from '~/style/container';
 import { errorMessage, form, formLabel, input } from '~/style/forms';
 import { headingText } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
@@ -73,12 +71,10 @@ const Admin = () => {
   }, [isSubmitting, submitError, validationError]);
 
   return (
-    <main className={cx(container, 'py-4')}>
-      <h1 className={headingText({ level: '3' })}>Admin</h1>
-
+    <>
       <h2
         className={headingText({
-          className: 'mt-4 mb-2 pb-0 border-b-2 border-current',
+          className: 'mb-2 pb-0 border-b-2 border-current',
           level: '6',
         })}
       >
@@ -190,7 +186,7 @@ const Admin = () => {
           </ul>
         </div>
       </div>
-    </main>
+    </>
   );
 };
 
