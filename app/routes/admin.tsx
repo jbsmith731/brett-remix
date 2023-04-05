@@ -55,7 +55,7 @@ export const headers = () => {
 
 export default function Admin() {
   const { env, session } = useLoaderData<typeof loader>();
-  const fetcher = useFetcher();
+  const { submit: fetcherSubmit } = useFetcher();
 
   const [supabase] = useState(() =>
     createBrowserClient<Database>(env.SUPABASE_URL, env.SUPABASE_ANON_KEY),
@@ -70,7 +70,7 @@ export default function Admin() {
       if (session?.access_token !== serverAccessToken) {
         // server and client are out of sync.
         // Remix recalls active loaders after actions complete
-        fetcher.submit(null, {
+        fetcherSubmit(null, {
           method: 'post',
           action: '/admin/handle-supabase-auth',
         });
@@ -80,7 +80,7 @@ export default function Admin() {
     return () => {
       subscription.unsubscribe();
     };
-  }, [serverAccessToken, supabase, fetcher]);
+  }, [serverAccessToken, supabase, fetcherSubmit]);
 
   return (
     <main className={cx(container, 'py-4')}>
