@@ -12,7 +12,7 @@ import { z } from 'zod';
 import { Linkbox } from '~/components/Linkbox';
 import { button } from '~/style/button';
 import { errorMessage, form, formLabel, input } from '~/style/forms';
-import { headingText } from '~/style/text';
+import { headingText, text } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
 
 export const action = async ({ request }: ActionArgs) => {
@@ -158,14 +158,14 @@ const Admin = () => {
           </RemixForm>
         </Form.Root>
 
-        <div>
-          <ul>
-            {data?.map(({ id, url, title, description }) => (
-              <li
-                key={id}
-                className="[&:not(:first-of-type)]:border-t border-gray"
-              >
-                <Linkbox.Root className="py-2">
+        <ul>
+          {data?.map(({ id, url, title, description }) => (
+            <li
+              key={id}
+              className="[&:not(:first-of-type)]:border-t border-gray"
+            >
+              <Linkbox.Root className="py-2 grid grid-cols-[1fr_auto] gap-2-3">
+                <div>
                   <h3 className={headingText({ level: '5' })}>
                     {url ? (
                       <Linkbox.Target
@@ -180,11 +180,31 @@ const Admin = () => {
                     )}
                   </h3>
                   <p>{description}</p>
-                </Linkbox.Root>
-              </li>
-            ))}
-          </ul>
-        </div>
+                </div>
+
+                <RemixForm
+                  method="post"
+                  action="/admin/bookmarks/delete"
+                  replace
+                >
+                  <input type="hidden" name="id" value={id} />
+                  <button
+                    type="submit"
+                    className={text({
+                      className:
+                        'hover:text-red-600 transition-colors p-0 -m-0 text-opacity-80',
+                      size: '-1',
+                      leading: '0',
+                      color: 'secondary',
+                    })}
+                  >
+                    Delete
+                  </button>
+                </RemixForm>
+              </Linkbox.Root>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

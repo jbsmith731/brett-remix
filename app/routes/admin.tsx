@@ -8,7 +8,7 @@ import type { Session, SupabaseClient } from '@supabase/auth-helpers-remix';
 import type { LoaderArgs } from '@vercel/remix';
 import { cx } from 'cva';
 import { container } from '~/style/container';
-import { headingText } from '~/style/text';
+import { headingText, text } from '~/style/text';
 import type { Database } from '~/types/supabase';
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
@@ -84,8 +84,18 @@ export default function Admin() {
 
   return (
     <main className={cx(container, 'py-4')}>
-      <div className="mb-4">
+      <div className="flex justify-between items-baseline mb-4">
         <h1 className={headingText({ level: '3' })}>Admin</h1>
+        <button
+          className={text({
+            className: 'hover:text-blue-600 transition-colors',
+            size: '-1',
+            leading: '0',
+          })}
+          onClick={() => supabase.auth.signOut()}
+        >
+          Sign out
+        </button>
       </div>
 
       <Outlet context={{ supabase, session }} />
