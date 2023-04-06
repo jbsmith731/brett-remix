@@ -12,34 +12,61 @@ import { z } from 'zod';
 import { Linkbox } from '~/components/Linkbox';
 import { button } from '~/style/button';
 import { errorMessage, form, formLabel, input } from '~/style/forms';
-import { headingText } from '~/style/text';
+import { headingText, text } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
+
+type FormAction = 'create' | 'delete';
 
 export const action = async ({ request }: ActionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
-  const formData = Object.fromEntries(await request.formData());
-  const bookmark = bookmarkSchema.safeParse(formData);
+  const { _action, ...values } = Object.fromEntries(await request.formData());
 
-  if (!bookmark.success) {
-    return json(
-      {
-        validationError: bookmark.error.format(),
-        submitError: null,
-      },
-      {
-        status: 400,
-      },
-    );
+  if (_action === 'create') {
+    const bookmark = bookmarkSchema.safeParse(values);
+
+    if (!bookmark.success) {
+      return json(
+        {
+          error: bookmark.error.format(),
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const { error, status } = await supabase
+      .from('Bookmarks')
+      .insert([bookmark.data]);
+
+    if (error) {
+      return json({ error: error.message }, { status });
+    }
+
+    return json({ error: null }, { status });
   }
 
-  try {
-    await supabase.from('Bookmarks').insert([bookmark.data]);
+  if (_action === 'delete') {
+    const deleteData = deleteSchema.safeParse(values);
 
-    return json({ submitError: null, validationError: null }, { status: 201 });
-  } catch (error) {
-    return json({ submitError: error, validationError: null }, { status: 400 });
+    if (!deleteData.success) {
+      return json({ error: deleteData.error.format() }, { status: 400 });
+    }
+
+    const { error, status } = await supabase
+      .from('Bookmarks')
+      .delete()
+      .eq('id', deleteData.data.id);
+
+    if (error) {
+      return json({ error: error.message }, { status });
+    }
+
+    return json({ error: null });
   }
+
+  return json({ error: '_action method not supported' });
 };
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -56,19 +83,20 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 const Admin = () => {
   const { data } = useLoaderData<typeof loader>();
-  const { submitError, validationError } = useActionData<typeof action>() ?? {};
-  const { state } = useNavigation();
-  const isSubmitting = state === 'submitting';
+  const { error } = useActionData<typeof action>() ?? {};
+  const { state, formData } = useNavigation();
+  const formAction = formData?.get('_action') as FormAction | null;
+  const isCreating = state === 'submitting' && formAction === 'create';
 
   const formRef = React.useRef<HTMLFormElement>(null);
   const firstInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
-    if (!isSubmitting && !submitError && !validationError) {
+    if (!isCreating && !error) {
       formRef.current?.reset();
       firstInputRef.current?.focus();
     }
-  }, [isSubmitting, submitError, validationError]);
+  }, [isCreating, error]);
 
   return (
     <>
@@ -90,83 +118,69 @@ const Admin = () => {
             ref={formRef}
             name="create"
           >
-            <Form.Field
-              name="title"
-              serverInvalid={Boolean(validationError?.title)}
-            >
+            <Form.Field name="title">
               <Form.Label className={formLabel}>Title</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Title"
                 className={input}
                 ref={firstInputRef}
+                required
+              />
+              <Form.Message match="valueMissing" className={errorMessage}>
+                Please enter a title
+              </Form.Message>
+            </Form.Field>
+
+            <Form.Field name="url">
+              <Form.Label className={formLabel}>URL</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="URL"
+                className={input}
+                required
               />
               <Form.Message
-                match="valueMissing"
-                forceMatch={Boolean(validationError?.title)}
+                match={(value) => isInvalidCreateField('url', value)}
                 className={errorMessage}
               >
-                {validationError?.title
-                  ? validationError.title._errors.join(', ')
-                  : null}
+                Invalid URL
               </Form.Message>
             </Form.Field>
 
-            <Form.Field
-              name="url"
-              serverInvalid={Boolean(validationError?.url)}
-            >
-              <Form.Label className={formLabel}>URL</Form.Label>
-              <Form.Control type="text" placeholder="URL" className={input} />
-              <Form.Message
-                match="patternMismatch"
-                forceMatch={Boolean(validationError?.url)}
-                className={errorMessage}
-              >
-                {validationError?.url
-                  ? validationError.url._errors.join(', ')
-                  : null}
-              </Form.Message>
-            </Form.Field>
-
-            <Form.Field
-              name="description"
-              serverInvalid={Boolean(validationError?.description)}
-            >
+            <Form.Field name="description">
               <Form.Label className={formLabel}>Description</Form.Label>
               <Form.Control placeholder="Description" asChild className={input}>
                 <textarea />
               </Form.Control>
-              <Form.Message
-                match="valueMissing"
-                forceMatch={Boolean(validationError?.description)}
-                className={errorMessage}
-              >
-                {validationError?.description
-                  ? validationError.description._errors.join(', ')
-                  : null}
-              </Form.Message>
             </Form.Field>
 
             <Form.Submit
               className={button()}
               type="submit"
-              disabled={isSubmitting}
+              disabled={isCreating}
+              name="_action"
+              value="create"
             >
-              {isSubmitting ? 'Submitting' : 'Submit'}
+              {isCreating ? 'Submitting' : 'Submit'}
             </Form.Submit>
           </RemixForm>
         </Form.Root>
 
-        <div>
-          <ul>
-            {data?.map(({ id, url, title, description }) => (
-              <li
-                key={id}
-                className="[&:not(:first-of-type)]:border-t border-gray"
-              >
-                <Linkbox.Root className="py-2">
-                  <h3 className={headingText({ level: '5' })}>
+        <ul>
+          {data?.map(({ id, url, title, description }) => (
+            <li
+              key={id}
+              className="[&:not(:first-of-type)]:border-t border-gray"
+            >
+              <Linkbox.Root className="py-2 grid grid-cols-[1fr_auto] gap-2-3">
+                <div>
+                  <h3
+                    className={headingText({
+                      className: 'mb-[4px]',
+                      level: '5',
+                    })}
+                  >
                     {url ? (
                       <Linkbox.Target
                         to={url}
@@ -179,12 +193,32 @@ const Admin = () => {
                       title
                     )}
                   </h3>
-                  <p>{description}</p>
-                </Linkbox.Root>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  <p className={text({ size: '0', leading: '2' })}>
+                    {description}
+                  </p>
+                </div>
+
+                <RemixForm method="post" replace>
+                  <input type="hidden" name="id" value={id} />
+                  <button
+                    type="submit"
+                    name="_action"
+                    value="delete"
+                    className={text({
+                      className:
+                        'hover:text-red-600 transition-colors p-0 -m-0 text-opacity-80',
+                      size: '-1',
+                      leading: '0',
+                      color: 'secondary',
+                    })}
+                  >
+                    Delete
+                  </button>
+                </RemixForm>
+              </Linkbox.Root>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
@@ -194,6 +228,20 @@ const bookmarkSchema = z.object({
   title: z.string().max(240).trim(),
   url: z.string().url().trim(),
   description: z.string().trim().optional(),
+});
+
+type CreateKeys = keyof typeof bookmarkSchema.shape;
+
+const isInvalidCreateField = (key: CreateKeys, value: unknown) => {
+  const field = bookmarkSchema
+    .pick({ [key]: true })
+    .safeParse({ [key]: value });
+
+  return !field.success;
+};
+
+const deleteSchema = z.object({
+  id: z.coerce.number(),
 });
 
 export default Admin;
