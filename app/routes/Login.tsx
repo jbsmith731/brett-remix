@@ -19,8 +19,7 @@ export const action = async ({ request }: ActionArgs) => {
   if (!loginData.success) {
     return json(
       {
-        validationError: loginData.error.format(),
-        submitError: null,
+        error: loginData.error.format(),
       },
       {
         status: 400,
@@ -28,12 +27,10 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
-  const { error: submitError } = await supabase.auth.signInWithPassword(
-    loginData.data,
-  );
+  const { error } = await supabase.auth.signInWithPassword(loginData.data);
 
-  if (submitError) {
-    return json({ submitError, validationError: null }, { status: 400 });
+  if (error) {
+    return json({ error: error.message }, { status: error.status });
   }
 
   return redirect('/admin', {
@@ -54,8 +51,7 @@ export const headers = () => {
 };
 
 const Login = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { submitError, validationError } = useActionData<typeof action>() ?? {};
+  const { error } = useActionData<typeof action>() ?? {};
 
   return (
     <div className={cx(container, 'flex h-screen')}>
@@ -73,6 +69,12 @@ const Login = () => {
                 required
                 className={input}
               />
+              <Form.Message match="valueMissing" className={errorMessage}>
+                Email is required
+              </Form.Message>
+              <Form.Message match="typeMismatch" className={errorMessage}>
+                Please enter a valid email address
+              </Form.Message>
             </Form.Field>
 
             <Form.Field name="password">
@@ -83,16 +85,18 @@ const Login = () => {
                 required
                 className={input}
               />
+              <Form.Message match="valueMissing" className={errorMessage}>
+                Password is required
+              </Form.Message>
             </Form.Field>
             <Form.Submit type="submit" className={button()}>
               Login
             </Form.Submit>
           </RemixForm>
         </Form.Root>
-        {/* TODO: Improve error/validation handling */}
-        {submitError || validationError ? (
+        {error ? (
           <p className={errorMessage}>
-            An error has ocurred. Please try again.
+            {typeof error === 'string' ? error : 'An error occurred'}
           </p>
         ) : null}
       </div>
