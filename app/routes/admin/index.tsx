@@ -176,7 +176,12 @@ const Admin = () => {
             >
               <Linkbox.Root className="py-2 grid grid-cols-[1fr_auto] gap-2-3">
                 <div>
-                  <h3 className={headingText({ level: '5' })}>
+                  <h3
+                    className={headingText({
+                      className: 'mb-[4px]',
+                      level: '5',
+                    })}
+                  >
                     {url ? (
                       <Linkbox.Target
                         to={url}
@@ -189,7 +194,9 @@ const Admin = () => {
                       title
                     )}
                   </h3>
-                  <p>{description}</p>
+                  <p className={text({ size: '0', leading: '2' })}>
+                    {description}
+                  </p>
                 </div>
 
                 <RemixForm
