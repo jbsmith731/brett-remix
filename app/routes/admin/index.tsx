@@ -11,7 +11,7 @@ import * as React from 'react';
 import { z } from 'zod';
 import { Linkbox } from '~/components/Linkbox';
 import { button } from '~/style/button';
-import { form, formLabel, input } from '~/style/forms';
+import { errorMessage, form, formLabel, input } from '~/style/forms';
 import { headingText, text } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
 
@@ -128,15 +128,9 @@ const Admin = () => {
                 ref={firstInputRef}
                 required
               />
-              {/* <Form.Message
-                match="valueMissing"
-                forceMatch={Boolean(validationError?.title)}
-                className={errorMessage}
-              >
-                {validationError?.title
-                  ? validationError.title._errors.join(', ')
-                  : null}
-              </Form.Message> */}
+              <Form.Message match="valueMissing" className={errorMessage}>
+                Please enter a title
+              </Form.Message>
             </Form.Field>
 
             <Form.Field name="url">
@@ -147,15 +141,12 @@ const Admin = () => {
                 className={input}
                 required
               />
-              {/* <Form.Message
-                match="patternMismatch"
-                forceMatch={Boolean(validationError?.url)}
+              <Form.Message
+                match={(value) => isInvalidCreateField('url', value)}
                 className={errorMessage}
               >
-                {validationError?.url
-                  ? validationError.url._errors.join(', ')
-                  : null}
-              </Form.Message> */}
+                Invalid URL
+              </Form.Message>
             </Form.Field>
 
             <Form.Field name="description">
@@ -163,15 +154,6 @@ const Admin = () => {
               <Form.Control placeholder="Description" asChild className={input}>
                 <textarea />
               </Form.Control>
-              {/* <Form.Message
-                match="valueMissing"
-                forceMatch={Boolean(validationError?.description)}
-                className={errorMessage}
-              >
-                {validationError?.description
-                  ? validationError.description._errors.join(', ')
-                  : null}
-              </Form.Message> */}
             </Form.Field>
 
             <Form.Submit
@@ -245,6 +227,16 @@ const bookmarkSchema = z.object({
   url: z.string().url().trim(),
   description: z.string().trim().optional(),
 });
+
+type CreateKeys = keyof typeof bookmarkSchema.shape;
+
+const isInvalidCreateField = (key: CreateKeys, value: unknown) => {
+  const field = bookmarkSchema
+    .pick({ [key]: true })
+    .safeParse({ [key]: value });
+
+  return !field.success;
+};
 
 const deleteSchema = z.object({
   id: z.coerce.number(),
