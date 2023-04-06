@@ -20,8 +20,7 @@ type FormAction = 'create' | 'delete';
 export const action = async ({ request }: ActionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
-  const formData = await request.formData();
-  const { _action, ...values } = Object.fromEntries(formData);
+  const { _action, ...values } = Object.fromEntries(await request.formData());
 
   if (_action === 'create') {
     const bookmark = bookmarkSchema.safeParse(values);
