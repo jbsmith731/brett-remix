@@ -49,7 +49,7 @@ export const action = async ({ request }: ActionArgs) => {
   }
 
   if (_action === 'delete') {
-    const deleteData = deleteSchema.safeParse(formData);
+    const deleteData = deleteSchema.safeParse(values);
 
     if (!deleteData.success) {
       return json({ error: deleteData.error.format() }, { status: 400 });
@@ -64,7 +64,7 @@ export const action = async ({ request }: ActionArgs) => {
       return json({ error: error.message }, { status });
     }
 
-    return json({ error: null }, { status });
+    return json({ error: null });
   }
 
   return json({ error: '_action method not supported' });
@@ -199,11 +199,7 @@ const Admin = () => {
                   </p>
                 </div>
 
-                <RemixForm
-                  method="post"
-                  action="/admin/bookmarks/delete"
-                  replace
-                >
+                <RemixForm method="post" replace>
                   <input type="hidden" name="id" value={id} />
                   <button
                     type="submit"
