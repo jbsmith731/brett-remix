@@ -24,7 +24,7 @@ const HomeLayout = () => {
         </div>
       </div>
 
-      <main className={cx(container)}>
+      <main className={container}>
         <div className="max-md:mt-6 lg:max-w-[880px]">
           <Outlet />
         </div>
