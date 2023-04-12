@@ -96,13 +96,13 @@ type Update = {
 
 const UPDATES: Update[] = [
   {
+    content: 'Audible ACX Blog',
+    date: 'Apr. 2023',
+  },
+  {
     content: 'Launched personal website v4.0',
     date: 'Mar. 2023',
   },
-  // {
-  //   content: 'Audible ACX Blog',
-  //   date: 'Mar. 2023',
-  // },
   {
     prefix: 'Awwwards',
     content: 'Elegant Seagulls agency Site of The Day',
