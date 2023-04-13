@@ -126,6 +126,8 @@ const Admin = () => {
                 className={input}
                 ref={firstInputRef}
                 required
+                autoComplete="off"
+                autoCapitalize="words"
               />
               <Form.Message match="valueMissing" className={errorMessage}>
                 Please enter a title
@@ -139,6 +141,7 @@ const Admin = () => {
                 placeholder="URL"
                 className={input}
                 required
+                autoComplete="off"
               />
               <Form.Message
                 match={(value) => isInvalidCreateField('url', value)}
