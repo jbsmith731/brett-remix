@@ -1,11 +1,12 @@
 import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch,
+  useRouteError,
 } from '@remix-run/react';
 import type { LinksFunction, MetaFunction } from '@vercel/remix';
 import { Link } from './components/Link';
@@ -74,8 +75,13 @@ export default function App() {
   );
 }
 
-export function CatchBoundary() {
-  const caught = useCatch();
+export function ErrorBoundary() {
+  const error = useRouteError();
+  let message: string | number = 'Something went wrong';
+
+  if (isRouteErrorResponse(error)) {
+    message = error.status;
+  }
 
   return (
     <html lang="en">
@@ -88,17 +94,17 @@ export function CatchBoundary() {
         <Links />
       </head>
       <body className="font-body bg-light-gray min-h-screen flex">
-        <div className="m-auto text-center grid gap-0">
+        <div className="m-auto text-center grid gap-0 justify-items-center">
           <h1
             className={headingText({
               className: formulaSpaceReset,
               level: 'mega',
             })}
           >
-            {caught.status}
+            {message}
           </h1>
 
-          <Link to="/" className="underline text-1">
+          <Link to="/" className="underline text-1 my-1 inline-block w-max">
             Go back home &rarr;
           </Link>
         </div>
