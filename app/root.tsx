@@ -15,6 +15,7 @@ import style from './style/style.css';
 import tw from './style/tailwind.css';
 
 export const links: LinksFunction = () => [
+  { rel: 'preload', as: 'stylesheet', href: tw },
   { rel: 'stylesheet', href: tw },
   { rel: 'stylesheet', href: style },
   {
@@ -77,7 +78,7 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   return (
-    <html>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -109,17 +110,17 @@ export function CatchBoundary() {
 const FONTS = `
 @font-face {
   font-family: 'Formula';
-  src: url('/fonts/PPFormulaCondensed-Bold.woff2') format('woff2');
+  src: url('./fonts/PPFormulaCondensed-Bold.woff2') format('woff2');
   font-weight: 700;
 }
 @font-face {
   font-family: 'NeueMontreal';
-  src: url('/fonts/PPNeueMontreal-Book.woff2') format('woff2');
+  src: url('./fonts/PPNeueMontreal-Book.woff2') format('woff2');
   font-weight: 400;
 }
 @font-face {
   font-family: 'NeueMontreal';
-  src: url('/fonts/PPNeueMontreal-Bold.woff2') format('woff2');
+  src: url('./fonts/PPNeueMontreal-Bold.woff2') format('woff2');
   font-weight: 700;
 }
 `;
