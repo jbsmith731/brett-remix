@@ -30,9 +30,8 @@ export const meta: MetaFunction = () => {
 
 export const headers = () => {
   return {
-    // cache max-age value of 30 days, a stale-if-revalidate value of 1 day, and a stale-if-error value of 7 days
-    'Cache-Control':
-      'max-age=2592000, stale-while-revalidate=86400, stale-if-error=604800',
+    // cache max-age value of 30 days, a stale-if-revalidate value of 1 day
+    'Cache-Control': 'max-age=2592000, stale-while-revalidate=86400',
   };
 };
 
