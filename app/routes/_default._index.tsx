@@ -1,10 +1,13 @@
 import { cx } from 'cva';
+import { cacheHeader } from 'pretty-cache-header';
 import { formulaSpaceReset, headingText, text } from '~/style/text';
 
 export const headers = () => {
   return {
-    // cache max-age value of 30 days, a stale-if-revalidate value of 1 day, and a stale-if-error value of 7 days
-    'Cache-Control': 'max-age=2592000, stale-while-revalidate=86400',
+    'Cache-Control': cacheHeader({
+      sMaxage: '30days',
+      staleWhileRevalidate: '1day',
+    }),
   };
 };
 
