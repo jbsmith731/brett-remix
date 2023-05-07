@@ -3,6 +3,7 @@ import { json, redirect } from '@remix-run/node';
 import { Form as RemixForm, useActionData } from '@remix-run/react';
 import type { ActionArgs, MetaFunction } from '@vercel/remix';
 import { cx } from 'cva';
+import { cacheHeader } from 'pretty-cache-header';
 import { z } from 'zod';
 import { button } from '~/style/button';
 import { container } from '~/style/container';
@@ -47,6 +48,9 @@ export const meta: MetaFunction = () => {
 export const headers = () => {
   return {
     'x-robots-tag': 'noindex,nofollow',
+    'Cache-Control': cacheHeader({
+      sMaxage: '30days',
+    }),
   };
 };
 
