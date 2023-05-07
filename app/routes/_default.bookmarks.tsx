@@ -1,5 +1,6 @@
 import type { LoaderArgs, MetaFunction } from '@vercel/remix';
 import { json } from '@vercel/remix';
+import { cacheHeader } from 'pretty-cache-header';
 import { Linkbox } from '~/components/Linkbox';
 import { createServerClient } from '~/utils/supabase.server';
 
@@ -30,8 +31,11 @@ export const meta: MetaFunction = () => {
 
 export const headers = () => {
   return {
-    // cache max-age value of 30 days, a stale-while-revalidate value of 1 day
-    'Cache-Control': 'max-age=2592000, stale-while-revalidate=86400',
+    'Cache-Control': cacheHeader({
+      sMaxage: '30days',
+      staleWhileRevalidate: '1day',
+      staleIfError: '7days',
+    }),
   };
 };
 
