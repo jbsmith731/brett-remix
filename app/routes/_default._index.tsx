@@ -106,6 +106,10 @@ type Update = {
 
 const UPDATES: Update[] = [
   {
+    content: 'Begin rolling out global Audible About site initiative',
+    date: 'Oct. 2023',
+  },
+  {
     content: 'Audible ACX Blog',
     date: 'Apr. 2023',
   },
