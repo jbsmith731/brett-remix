@@ -106,6 +106,14 @@ type Update = {
 
 const UPDATES: Update[] = [
   {
+    content: 'Launch new Audible Gift Center experience',
+    date: 'Oct. 2023',
+  },
+  {
+    content: 'Launch updated global Audible landing page experiments',
+    date: 'Oct. 2023',
+  },
+  {
     content: 'Begin rolling out global Audible About site initiative',
     date: 'Oct. 2023',
   },
@@ -114,7 +122,7 @@ const UPDATES: Update[] = [
     date: 'Apr. 2023',
   },
   {
-    content: 'Launched personal website v4.0',
+    content: 'Launch personal website v4.0',
     date: 'Mar. 2023',
   },
   {
@@ -127,11 +135,11 @@ const UPDATES: Update[] = [
     date: 'May 2022',
   },
   {
-    content: 'Launched Audible landing page experiments',
+    content: 'Launch Audible landing page experiments',
     date: 'Apr. 2022',
   },
   {
-    content: 'Launched Audible Audiobook quiz recommendation  platform',
+    content: 'Launch Audible Audiobook quiz recommendation  platform',
     date: 'Nov. 2021',
   },
   {
