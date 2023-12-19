@@ -106,6 +106,12 @@ type Update = {
 
 const UPDATES: Update[] = [
   {
+    prefix: 'Awwwards',
+    content: 'Elegant Seagulls Sauce Honorable Mention',
+    date: 'Nov. 2023',
+  },
+  { content: 'Launch Elegant Seagulls Sauce website', date: 'Nov. 2023' },
+  {
     content: 'Launch new Audible Gift Center experience',
     date: 'Oct. 2023',
   },
