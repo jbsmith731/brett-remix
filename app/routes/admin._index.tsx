@@ -134,7 +134,7 @@ const Admin = () => {
             name="create"
           >
             <Form.Field name="title">
-              <Form.Label className={formLabel}>Title</Form.Label>
+              <Form.Label className={formLabel}>Title*</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Title"
@@ -150,7 +150,7 @@ const Admin = () => {
             </Form.Field>
 
             <Form.Field name="url">
-              <Form.Label className={formLabel}>URL</Form.Label>
+              <Form.Label className={formLabel}>URL*</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="URL"
