@@ -7,6 +7,7 @@ import {
 } from '@remix-run/react';
 import type { ActionArgs, LoaderArgs } from '@vercel/remix';
 import { json } from '@vercel/remix';
+import * as cheerio from 'cheerio';
 import * as React from 'react';
 import { z } from 'zod';
 import { Linkbox } from '~/components/Linkbox';
@@ -36,9 +37,23 @@ export const action = async ({ request }: ActionArgs) => {
       );
     }
 
-    const { error, status } = await supabase
-      .from('Bookmarks')
-      .insert([bookmark.data]);
+    let metaDescription = null;
+
+    if (!bookmark.data.description) {
+      const bookmarkMarkup = await fetch(bookmark.data.url).then((res) =>
+        res.text(),
+      );
+
+      const $ = cheerio.load(bookmarkMarkup);
+      metaDescription = $('meta[name="description"]')?.attr('content');
+    }
+
+    const { error, status } = await supabase.from('Bookmarks').insert([
+      {
+        ...bookmark.data,
+        ...(metaDescription ? { description: metaDescription } : {}),
+      },
+    ]);
 
     if (error) {
       return json({ error: error.message }, { status });
