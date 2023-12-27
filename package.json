@@ -14,6 +14,7 @@
     "@supabase/auth-helpers-remix": "^0.1.9",
     "@supabase/supabase-js": "^2.39.1",
     "@vercel/remix": "^1.19.3",
+    "cheerio": "1.0.0-rc.12",
     "cva": "npm:class-variance-authority@^0.4.0",
     "isbot": "latest",
     "prettier-plugin-organize-imports": "^3.2.4",
