@@ -9,18 +9,6 @@ import { formulaSpaceReset, headingText, text } from '~/style/text';
 
 const TITLE = 'Bookmarks | Brett Smith - Frontend Engineer';
 
-export const loader = async ({ request }: LoaderArgs) => {
-  const response = new Response();
-  const supbase = createServerClient({ request, response });
-
-  const { data, error } = await supbase
-    .from('Bookmarks')
-    .select('title, url, description')
-    .order('id', { ascending: false });
-
-  return json({ data, error });
-};
-
 export const meta: MetaFunction = () => {
   return {
     title: TITLE,
@@ -34,9 +22,20 @@ export const headers = () => {
     'Cache-Control': cacheHeader({
       sMaxage: '30days',
       staleWhileRevalidate: '1day',
-      staleIfError: '7days',
     }),
   };
+};
+
+export const loader = async ({ request }: LoaderArgs) => {
+  const response = new Response();
+  const supbase = createServerClient({ request, response });
+
+  const { data, error } = await supbase
+    .from('Bookmarks')
+    .select('title, url, description')
+    .order('id', { ascending: false });
+
+  return json({ data, error });
 };
 
 export default function Bookmarks() {
