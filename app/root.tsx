@@ -16,7 +16,7 @@ import style from './style/style.css';
 import tw from './style/tailwind.css';
 
 export const links: LinksFunction = () => [
-  { rel: 'preload', as: 'stylesheet', href: tw },
+  { rel: 'preload', as: 'style', href: tw },
   { rel: 'stylesheet', href: tw },
   { rel: 'stylesheet', href: style },
   {
