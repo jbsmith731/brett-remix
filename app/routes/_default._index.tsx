@@ -105,6 +105,7 @@ type Update = {
 };
 
 const UPDATES: Update[] = [
+  { content: 'Presenter at Contentful Amazon Day', date: 'Jul. 2024' },
   {
     prefix: 'Awwwards',
     content: 'Elegant Seagulls Sauce Honorable Mention',
