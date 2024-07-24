@@ -1,7 +1,7 @@
-const createFluidValue = require('./createFluidValue');
+import createFluidValue from './createFluidValue';
+import type { Config } from "tailwindcss";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {
@@ -66,4 +66,4 @@ module.exports = {
   corePlugins: {
     float: false,
   },
-};
+} satisfies Config;
