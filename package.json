@@ -1,9 +1,11 @@
 {
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "dev": "remix vite:dev",
+    "build": "remix vite:build",
+    "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc",
     "format": "prettier --write 'app/**/*.{ts,tsx}'"
   },
@@ -24,17 +26,19 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.19.3",
-    "@remix-run/eslint-config": "^1.19.3",
-    "@remix-run/serve": "^1.19.3",
+    "@remix-run/dev": "^2.10.3",
+    "@remix-run/eslint-config": "^2.10.3",
+    "@remix-run/serve": "^2.10.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^8.10.0",
-    "prettier": "2.8.4",
+    "prettier": "3.3.3",
     "supabase": "^1.183.5",
     "tailwindcss": "^3.4.6",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vite": "^5.3.4",
+    "vite-tsconfig-paths": "^4.3.2"
   },
   "engines": {
     "node": ">=14"

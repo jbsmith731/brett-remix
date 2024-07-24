@@ -1,7 +1,6 @@
 import {
   isRouteErrorResponse,
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -12,8 +11,8 @@ import type { LinksFunction, MetaFunction } from '@vercel/remix';
 import { Link } from './components/Link';
 import { formulaSpaceReset, headingText } from './style/text';
 
-import style from './style/style.css';
-import tw from './style/tailwind.css';
+import style from './style/style.css?url';
+import tw from './style/tailwind.css?url';
 
 export const links: LinksFunction = () => [
   { rel: 'preload', as: 'style', href: tw },
@@ -69,7 +68,6 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
