@@ -5,7 +5,7 @@ import {
   useLoaderData,
   useNavigation,
 } from '@remix-run/react';
-import type { ActionArgs, LoaderArgs } from '@vercel/remix';
+import type { ActionFunctionArgs, LoaderFunctionArgs } from '@vercel/remix';
 import { json } from '@vercel/remix';
 import * as cheerio from 'cheerio';
 import * as React from 'react';
@@ -18,7 +18,7 @@ import { createServerClient } from '~/utils/supabase.server';
 
 type FormAction = 'create' | 'delete';
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
   const { _action, ...values } = Object.fromEntries(await request.formData());
@@ -84,7 +84,7 @@ export const action = async ({ request }: ActionArgs) => {
   return json({ error: '_action method not supported' });
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
 

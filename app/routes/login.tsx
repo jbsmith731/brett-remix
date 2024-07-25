@@ -1,7 +1,7 @@
 import * as Form from '@radix-ui/react-form';
 import { json, redirect } from '@remix-run/node';
 import { Form as RemixForm, useActionData } from '@remix-run/react';
-import type { ActionArgs, MetaFunction } from '@vercel/remix';
+import type { ActionFunctionArgs, MetaFunction } from '@vercel/remix';
 import { cx } from 'cva';
 import { cacheHeader } from 'pretty-cache-header';
 import { z } from 'zod';
@@ -11,7 +11,7 @@ import { errorMessage, form, formLabel, input } from '~/style/forms';
 import { headingText } from '~/style/text';
 import { createServerClient } from '~/utils/supabase.server';
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
   const formData = Object.fromEntries(await request.formData());
@@ -40,9 +40,11 @@ export const action = async ({ request }: ActionArgs) => {
 };
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Login',
-  };
+  return [
+    {
+      title: 'Login',
+    },
+  ];
 };
 
 export const headers = () => {

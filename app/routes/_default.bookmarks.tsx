@@ -1,4 +1,4 @@
-import type { LoaderArgs, MetaFunction } from '@vercel/remix';
+import type { LoaderFunctionArgs, MetaFunction } from '@vercel/remix';
 import { json } from '@vercel/remix';
 import { cacheHeader } from 'pretty-cache-header';
 import { Linkbox } from '~/components/Linkbox';
@@ -10,11 +10,13 @@ import { formulaSpaceReset, headingText, text } from '~/style/text';
 const TITLE = 'Bookmarks | Brett Smith - Frontend Engineer';
 
 export const meta: MetaFunction = () => {
-  return {
-    title: TITLE,
-    'og:title': TITLE,
-    'twitter:title': TITLE,
-  };
+  return [
+    {
+      title: TITLE,
+      'og:title': TITLE,
+      'twitter:title': TITLE,
+    },
+  ];
 };
 
 export const headers = () => {
@@ -26,7 +28,7 @@ export const headers = () => {
   };
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const response = new Response();
   const supbase = createServerClient({ request, response });
 

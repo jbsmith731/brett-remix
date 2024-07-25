@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { createServerClient } from '~/utils/supabase.server';
 
 import type { Session, SupabaseClient } from '@supabase/auth-helpers-remix';
-import type { LoaderArgs } from '@vercel/remix';
+import type { LoaderFunctionArgs } from '@vercel/remix';
 import { cx } from 'cva';
 import { container } from '~/style/container';
 import { headingText, text } from '~/style/text';
@@ -19,7 +19,7 @@ export type SupabaseContext = {
   session: MaybeSession;
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const env = {
     SUPABASE_URL: process.env.SUPABASE_URL!,
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!,
