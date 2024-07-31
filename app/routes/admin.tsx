@@ -1,6 +1,6 @@
 import { Outlet, useFetcher, useLoaderData } from '@remix-run/react';
 import { createBrowserClient } from '@supabase/auth-helpers-remix';
-import { json, redirect } from '@vercel/remix';
+import { json } from '@vercel/remix';
 import { useEffect, useState } from 'react';
 import { createServerClient } from '~/utils/supabase.server';
 
@@ -33,7 +33,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   } = await supabase.auth.getSession();
 
   if (!session) {
-    throw redirect('/', 302);
+    throw new Response(null, {
+      status: 404,
+      statusText: 'Not Found',
+    });
   }
 
   return json(
