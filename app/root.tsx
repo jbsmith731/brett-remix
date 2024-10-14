@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
   useRouteError,
 } from '@remix-run/react';
-import type { LinksFunction, V2_MetaFunction } from '@vercel/remix';
+import type { LinksFunction, MetaFunction } from '@vercel/remix';
 import { Link } from './components/Link';
 import { formulaSpaceReset, headingText } from './style/text';
 
@@ -39,7 +39,7 @@ const SOCIAL_IMAGE = 'https://brettsmith.me/images/social.png';
 const DESCRIPTION =
   'Software engineer interested in TypeScript, React, and Design Systems. Currently working as Technical Director at Elegant Seagulls';
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: TITLE,

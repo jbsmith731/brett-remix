@@ -105,6 +105,10 @@ type Update = {
 };
 
 const UPDATES: Update[] = [
+  {
+    content: 'Launch custom Audible Catalog Figma plugin',
+    date: 'Sept. 2024',
+  },
   { content: 'Presenter at Contentful Amazon Day', date: 'Jul. 2024' },
   {
     prefix: 'Awwwards',
