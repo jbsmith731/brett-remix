@@ -30,10 +30,7 @@ export default function Index() {
               Role
             </h2>
             <p className={text({ leading: '0', size: '1' })}>
-              <abbr title="Technical" className="no-underline">
-                Tech.
-              </abbr>{' '}
-              Director @ Elegant Seagulls
+              Software Engineer @ BDG Partners
             </p>
           </li>
           <li>
@@ -41,7 +38,7 @@ export default function Index() {
               Interests
             </h2>
             <p className={text({ leading: '0', size: '1' })}>
-              React, TypeScript, &amp; Design Systems
+              TypeScript, React, &amp; Design Systems
             </p>
           </li>
         </ul>
@@ -105,6 +102,10 @@ type Update = {
 };
 
 const UPDATES: Update[] = [
+  {
+    content: 'New role as Software Engineer with BDG Partners',
+    date: 'Nov. 2024',
+  },
   {
     content: 'Launch custom Audible Catalog Figma plugin',
     date: 'Sept. 2024',
