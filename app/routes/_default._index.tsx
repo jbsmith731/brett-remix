@@ -103,7 +103,7 @@ type Update = {
 
 const UPDATES: Update[] = [
   {
-    content: 'New role as Software Engineer with BDG Partners',
+    content: 'New role as Software Engineer @ BDG Partners',
     date: 'Nov. 2024',
   },
   {
