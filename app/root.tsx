@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
   useRouteError,
 } from '@remix-run/react';
-import type { LinksFunction, MetaFunction } from '@vercel/remix';
+import type { LinksFunction } from '@vercel/remix';
 import { Link } from './components/Link';
 import { formulaSpaceReset, headingText } from './style/text';
 
@@ -33,28 +33,6 @@ export const links: LinksFunction = () => [
     crossOrigin: 'anonymous',
   },
 ];
-
-const TITLE = 'Brett Smith - Frontend Engineer';
-const SOCIAL_IMAGE = 'https://brettsmith.me/images/social.png';
-const DESCRIPTION =
-  'Software engineer interested in TypeScript, React, and Design Systems. Currently working as Technical Director at Elegant Seagulls';
-
-export const meta: MetaFunction = () => {
-  return [
-    {
-      title: TITLE,
-      description: DESCRIPTION,
-      'og:title': TITLE,
-      'twitter:title': TITLE,
-      'og:image': SOCIAL_IMAGE,
-      'twitter:image': SOCIAL_IMAGE,
-      'og:description': DESCRIPTION,
-      'twitter:description': DESCRIPTION,
-      'twitter:card': 'summary_large_image',
-      'twitter:site': '@_brettsmith',
-    },
-  ];
-};
 
 export default function App() {
   return (
